@@ -303,7 +303,7 @@ impl RenderedWindow {
     pub fn draw(
         &mut self,
         root_canvas: &Canvas,
-        transparency: u8,
+        opacity: u8,
         background: Background,
         screen_rect: &Rect,
         grid_scale: GridScale,
@@ -321,7 +321,7 @@ impl RenderedWindow {
 
         let paint = Paint::default()
             .set_anti_alias(false)
-            .set_color(Color::from_argb(transparency, 255, 255, 255))
+            .set_color(Color::from_argb(opacity, 255, 255, 255))
             .set_blend_mode(if self.anchor_info.is_some() {
                 BlendMode::SrcOver
             } else {
@@ -354,7 +354,7 @@ impl RenderedWindow {
         root_canvas.save_layer(&background_layer_rec);
         // root_canvas.save();
         root_canvas.clip_rect(pixel_region, None, Some(false));
-        root_canvas.clear(background.color.with_a(transparency));
+        root_canvas.clear(background.color.with_a(opacity));
         // root_canvas.clear(background.color.with_a(242));
 
         self.draw_background_surface(root_canvas, pixel_region_box, grid_scale);
